@@ -31,7 +31,7 @@ http://tinco.pair.com/bhaskar/gtm/doc/books/pg/UNIX_manual/ch10s09.html#freecnt_
 ## Configuring repository of gdeQualifier
 
      |-- m_routines                                                      
-     |     +-- _nodemGTM2.m    GT.M function InitZgdeQualifier() 
+     |     +-- _nodemGTM2.m    GT.M function $$InitZgdeQualifier() and $$FreeBlock
      |-- node_modules                                                        
      |     +-- gdeQualifier.js back-end Node.js module                        
      +-- www                                                             
