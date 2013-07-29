@@ -23,7 +23,7 @@ http://tinco.pair.com/bhaskar/gtm/doc/books/ao/UNIX_manual/gdecmds.html#gde_show
  * Javascript framework : ExtJS 4.2 or late  (require)
  * Test browser : Google Chrome v 28.0.1500.72
 
-## Configuring repository of DSEWarp
+## Configuring repository of gdeQualifier
 
      |-- m_routines                                                      
      |     +-- _nodemGTM2.m    GT.M function InitZgdeQualifier() 
