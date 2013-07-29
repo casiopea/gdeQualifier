@@ -105,3 +105,15 @@ onemap:(s1,s2)	;
 	s maps(iii,"File")=s
 	q
 	;--------------------------------------------------------------------
+FreeBlock()	;  zlink "_nodemGTM2.m"    w $$FreeBlock^%nodemGTM2
+	n i,result,rn,fb,tb
+	s rn=""
+	f i=1:1 s rn=$view("gvnext",rn) q:rn=""  d
+	. s result(i,"Region")=rn
+	. s (fb,result(i,"Free"))=$v("FREEBLOCKS",rn)
+	. s (tb,result(i,"Total"))=$v("TOTALBLOCKS",rn)
+	. s result(i,"Percentage")=fb/tb*100.0                ;;;$j(fb/tb*100.0,6,2)
+	. s result(i,"Database_file")=$v("GVFILE",rn)
+	q $$arrayToJSON^%zewdJSON("result")
+	;
+	

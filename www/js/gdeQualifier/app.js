@@ -21,21 +21,6 @@
  
 */
 
-var AboutGDEqualifier = function() {
-
-  Ext.Msg.alert(
-	'Information', 
-	'GDE Qualifier Update Date'
-  );
-
-};
-  
-var closeMsg = function() {
-  Ext.defer(function() {
-    Ext.MessageBox.hide();
-  },1500);
-};  
-
 EWD.onSocketsReady = function() {
   Ext.getCmp('loginBtn').show();
 };
@@ -55,12 +40,16 @@ EWD.onSocketMessage = function(messageObj) {
     EWD.sockets.sendMessage({type: "getSegQualifierData"});
     EWD.sockets.sendMessage({type: "getNames"});
     EWD.sockets.sendMessage({type: "getMap"});
+    EWD.sockets.sendMessage({type: "freeCount"});
   }
 
   if (messageObj.type === 'AboutGDEqualifier') {
-    var date=messageObj.message;
-
-  
+    Ext.getCmp('AboutGDEqualifierPanel').update(
+      'GDE Qualifier View Ver 0.1.1 Build 20130729<BR>' +
+      'GDE Qualifier Global %zgdequalifier Update : ' + messageObj.message + '<BR>'
+    );
+    Ext.getCmp('AboutGDEqualifier').show();
+    return;
   }
   
   if (messageObj.type === 'getRegQualifierData') {
@@ -87,5 +76,11 @@ EWD.onSocketMessage = function(messageObj) {
     EWD.stores.gdeMapGridStore.loadData(messageObj.message);
     return;
   }
+
+  if (messageObj.type === 'freeCount') {
+    EWD.stores.FreeCountGridStore.loadData(messageObj.message);
+    return;
+  }
+
   
 };

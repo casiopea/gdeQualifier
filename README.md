@@ -1,6 +1,9 @@
 # GT.M GDE Qualifier show All for EWD Lite
 
-Version 0.1.0 - 2013/07/29
+Version 0.1.1 - 2013/07/29
+
+## HIstory
+ * 2013/07/29 add Free Count Tab, that is equal Do ^%FREECNT.
 
 ## About GDE Qualifier show All for EWD Lite
 
@@ -8,6 +11,8 @@ This EWD Lite application is equal GDE show -all command.
 more details GDE show -all, See : chapter Global Directory Editor in GT.M Administration and Operations Guide
 http://tinco.pair.com/bhaskar/gtm/doc/books/ao/UNIX_manual/gdecmds.html#gde_show
 
+%FREECNT: Displays the number of free blocks in the database files associated with the current global directory.
+http://tinco.pair.com/bhaskar/gtm/doc/books/pg/UNIX_manual/ch10s09.html#freecnt_percent
 
 ## Sample preView
 ![GDE Qualifier show region](./example_preView1.png)

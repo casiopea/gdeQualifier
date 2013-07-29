@@ -101,6 +101,15 @@ EWD.stores = {
       {name: 'Segment'},
       {name: 'File'}
     ]
+  }),
+  FreeCountGridStore: Ext.create('Ext.data.Store', {
+    fields: [
+      {name: 'Region'},
+      {name: 'Free'},
+      {name: 'Total'},
+      {name: 'Percentage'},
+      {name: 'Database_file'}
+    ]
   })
   
 };
@@ -207,6 +216,24 @@ EWD.grid = {
        {  dataIndex: 'Segment', text: 'Segment',         width: 100,       xtype: 'gridcolumn'  },       
        {  dataIndex: 'File',    text: 'File',            width: 200,       xtype: 'gridcolumn'  }      
     ]
+  }),
+  FreeCountGridPanel : Ext.create('Ext.grid.Panel',{
+    frame: true,
+    id: 'freeCount',
+    store: EWD.stores.FreeCountGridStore,
+    width: 570,
+    align: 'center',
+    xtype: 'gridpanel',
+    viewConfig: {
+        markDirty: false
+    },
+    columns: [
+       {  dataIndex: 'Region',        text: 'Region',        width: 100,  xtype: 'gridcolumn'  },
+       {  dataIndex: 'Free',          text: 'Free',          width: 100,  xtype: 'gridcolumn', align: 'right'  },
+       {  dataIndex: 'Total',         text: 'Total',         width: 100,  xtype: 'gridcolumn', align: 'right'  },
+       {  dataIndex: 'Percentage',    text: 'Percent',       width:  80,  xtype: 'numbercolumn', format:'0.00', align: 'right'  },
+       {  dataIndex: 'Database_file', text: 'Database_file', width: 200,  xtype: 'gridcolumn'  }
+    ]
   })
   
 };
@@ -225,14 +252,14 @@ EWD.ext4 = {
 	       items: [
 	        'GT.M GDE/DSE Qualifier Viewer'
 		    , '->' ,
-			{  handler: function () {
-				 AboutGDEqualifier();
-               },
+		    {  handler: function () {
+		         AboutGDEqualifier();
+		       },
 		       text: 'About',
 		       xtype: 'button'
-			}
-          ]		    
-	    },
+		    }
+              ]		    
+	},
         {  id: "centerPanel",
            region: "center",
            resizable: true,
@@ -268,7 +295,14 @@ EWD.ext4 = {
                 title: "Map",
                 xtype: "panel",
                 items: EWD.grid.gdeMapGridPanel
+             },
+	     {  id: "freeCountTabPanel",
+                layout: "fit",
+                title: "Free Count",
+                xtype: "panel",
+                items: EWD.grid.FreeCountGridPanel
              }
+	     
 	  ]
         }
       ]
@@ -327,8 +361,55 @@ EWD.ext4 = {
            ]
         }
       ]
-    });    
-
+    });
     
-  }  
+  }
+ 
 }
+
+
+var AboutGDEqualifier = function() {
+  
+  EWD.sockets.sendMessage({ type: 'AboutGDEqualifier' });
+
+  Ext.create("Ext.window.Window", {
+    hidden: true,
+    width: 400,
+    height:100,
+    id : 'AboutGDEqualifier',
+    layout: "fit",
+    modal: true,
+    closable: true,
+    renderTo: Ext.getBody(),
+    title: 'GDE Qualifier Infomation',
+    items: [
+      {
+	xtype : 'panel',
+	id : 'AboutGDEqualifierPanel',
+	title: '',
+	html: '<p>GDE Qualifier Update : </p>',
+	renderTo: Ext.getBody()
+      }
+    ],
+    dockedItems: [
+      {
+        xtype: 'toolbar',
+	dock: 'bottom',
+	ui: 'footer',
+	items: [
+	  { 
+	    handler: function () {
+	      Ext.getCmp('AboutGDEqualifier').close();
+	    },
+	    xtype: 'button',
+	    text: 'OK' 
+	  }
+	]
+      }
+    ]
+
+  });
+  
+};
+  
+
